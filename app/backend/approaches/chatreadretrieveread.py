@@ -24,19 +24,19 @@ class ChatReadRetrieveReadApproach(Approach):
     top documents from search, then constructs a prompt with them, and then uses OpenAI to generate an completion
     (answer) with that prompt.
     """
-    system_message_chat_conversation = """Assistant helps the company employees with their healthcare plan questions, and questions about the employee handbook. Be brief in your answers.
+    system_message_chat_conversation = """Assistant helps with information related to the Port Authority of New York and New Jersey infrastructure, contracts, frequently asked questions (FAQs), and on minority and women owned business entities. Be brief in your answers.
 Answer ONLY with the facts listed in the list of sources below. If there isn't enough information below, say you don't know. Do not generate answers that don't use the sources below. If asking a clarifying question to the user would help, ask the question.
 For tabular information return it as an html table. Do not return markdown format. If the question is not in English, answer in the language used in the question.
 Each source has a name followed by colon and the actual information, always include the source name for each fact you use in the response. Use square brackets to reference the source, e.g. [info1.txt]. Don't combine sources, list each source separately, e.g. [info1.txt][info2.pdf].
 {follow_up_questions_prompt}
 {injected_prompt}
 """
-    follow_up_questions_prompt_content = """Generate three very brief follow-up questions that the user would likely ask next about their healthcare plan and employee handbook.
-Use double angle brackets to reference the questions, e.g. <<Are there exclusions for prescriptions?>>.
+    follow_up_questions_prompt_content = """Generate three very brief follow-up questions that the user would likely ask next based on doing business with the Port Authority of New York and New Jersey.
+Use double angle brackets to reference the questions, e.g. <<What are the requirements for an MWBE contract?>>.
 Try not to repeat questions that have already been asked.
 Only generate questions and do not generate any text before or after the questions, such as 'Next Questions'"""
 
-    query_prompt_template = """Below is a history of the conversation so far, and a new question asked by the user that needs to be answered by searching in a knowledge base about employee healthcare plans and the employee handbook.
+    query_prompt_template = """Below is a history of the conversation so far, and a new question asked by the user that needs to be answered by searching in a knowledge base.
 You have access to Azure Cognitive Search index with 100's of documents.
 Generate a search query based on the conversation and the new question.
 Do not include cited source filenames and document names e.g info.txt or doc.pdf in the search query terms.
@@ -46,10 +46,10 @@ If the question is not in English, translate the question to English before gene
 If you cannot generate a search query, return just the number 0.
 """
     query_prompt_few_shots = [
-        {"role": USER, "content": "What are my health plans?"},
-        {"role": ASSISTANT, "content": "Show available health plans"},
-        {"role": USER, "content": "does my plan cover cardio?"},
-        {"role": ASSISTANT, "content": "Health plan cardio coverage"},
+        {"role": USER, "content": "Where do I find the solicitation documents?"},
+        {"role": ASSISTANT, "content": "Solicitation documents can be found on the Port Authority website: Solicitations/Advertisements Information | Port Authority of New York and New Jersey (panynj.gov)"},
+        {"role": USER, "content": "How do I find the status of my certification?"},
+        {"role": ASSISTANT, "content": "You may find out the status of your certification by logging into your account at Diversity Management Program - Supplier Diversity - Business Opportunities - Port Authority of New York & New Jersey"},
     ]
 
     def __init__(

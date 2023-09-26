@@ -75,7 +75,7 @@ const Chat = () => {
         return fullResponse;
     };
 
-    const client = useLogin ? useMsal().instance : undefined
+    const client = useLogin ? useMsal().instance : undefined;
 
     const makeApiRequest = async (question: string) => {
         lastQuestionRef.current = question;
@@ -85,7 +85,7 @@ const Chat = () => {
         setActiveCitation(undefined);
         setActiveAnalysisPanelTab(undefined);
 
-        const token = client ? await getToken(client) : undefined
+        const token = client ? await getToken(client) : undefined;
 
         try {
             const history: ChatTurn[] = answers.map(a => ({ user: a[0], bot: a[1].answer }));
@@ -215,7 +215,7 @@ const Chat = () => {
                     {!lastQuestionRef.current ? (
                         <div className={styles.chatEmptyState}>
                             <SparkleFilled fontSize={"120px"} primaryFill={"rgba(115, 118, 225, 1)"} aria-hidden="true" aria-label="Chat logo" />
-                            <h1 className={styles.chatEmptyStateTitle}>Chat with your data</h1>
+                            <h1 className={styles.chatEmptyStateTitle}>Chat with your PANYNJ data</h1>
                             <h2 className={styles.chatEmptyStateSubtitle}>Ask anything or try an example</h2>
                             <ExampleList onExampleClicked={onExampleClicked} />
                         </div>
@@ -282,7 +282,7 @@ const Chat = () => {
                     <div className={styles.chatInput}>
                         <QuestionInput
                             clearOnSend
-                            placeholder="Type a new question (e.g. does my plan cover annual eye exams?)"
+                            placeholder="Type a new question (e.g. what are the requirements for a MWBE contract?)"
                             disabled={isLoading}
                             onSend={question => makeApiRequest(question)}
                         />
@@ -355,7 +355,7 @@ const Chat = () => {
                             onChange={onUseOidSecurityFilterChange}
                         />
                     )}
-                    {useLogin &&  (
+                    {useLogin && (
                         <Checkbox
                             className={styles.chatSettingsSeparator}
                             checked={useGroupsSecurityFilter}
@@ -381,7 +381,7 @@ const Chat = () => {
                         label="Stream chat completion responses"
                         onChange={onShouldStreamChange}
                     />
-                    { useLogin && <TokenClaimsDisplay />}
+                    {useLogin && <TokenClaimsDisplay />}
                 </Panel>
             </div>
         </div>

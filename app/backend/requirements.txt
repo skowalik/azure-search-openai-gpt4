@@ -13,3 +13,4 @@ opentelemetry-instrumentation-requests==0.40b0
 opentelemetry-instrumentation-aiohttp-client==0.40b0
 msal==1.23.0
 msal-extensions==1.0.0
+werkzeug==2.3.7 # pin due to 3.0 breaking change with quart
